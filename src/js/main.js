@@ -6,19 +6,25 @@ export function init(el, context, config, mediator) {
 
   	el.innerHTML = mainHTML;
 
-  	var ssKey = "1uQioCaW7on919nLfs7T7Fpiy3tygPmwHfO5Y-H42zxU";
+    var ssKey = '10BgANXZNjJ13P1XRDll5JCY-mqmstIwzsEO4gwbDeh0' ;
+
+    var batch = 'Sheet1' ;
+
+    var sectionColour = '#ad0006' ;
+
+    var rotator = false ;
 
 	reqwest({
-	  url: 'https://interactive.guim.co.uk/docsdata/' + ssKey + '.json',
+	  url: 'https://interactive.guim.co.uk/docsdata-test/' + ssKey + '.json',
 	  type: 'json',
 	  crossOrigin: true,
 	  success: (resp) =>  { 
-	  	handleData(resp) 
+	  	handleData(resp, batch, sectionColour, rotator) 
 	  }
 	});
     
 }
 
-function handleData(data) {
-  var quote = new Quotator(data)
+function handleData(data, batch, sectionColour, rotator) {
+  var quote = new Quotator(data, batch, sectionColour, rotator)
 }

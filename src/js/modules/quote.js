@@ -1,6 +1,6 @@
 export class Quotator {
 
-	constructor(data) {
+	constructor(data, batch, sectionColour, rotator) {
 
 		var self = this
 
@@ -16,35 +16,71 @@ export class Quotator {
 		}
 
 		// Create the database
-		this.database = data.sheets.Sheet1
+		this.database = data.sheets[batch]
 
-		// Set the headline from the first field before you randomize
-		document.getElementById('quotePrompter').innerHTML = this.database[0]['headline']
+		var sorted = self.database.sort(function(a, b){
+		  return b.quote.length - a.quote.length;
+		});
+
+
+		//this.fontsizer(parseInt(sorted[0].quote))
+
+		document.getElementById('quoteText').innerHTML = sorted[0].quote
+
+		document.getElementById('quotePrompter').innerHTML = sorted[0].attribution
+
+		var qh = document.getElementById('quotator').clientHeight;
+
+		document.getElementById("quotator").style.minHeight = (qh + 75) + 'px'
 
 		// Shuffle the deck
-		this.database.shuffle();
+		//this.database.shuffle();
 
-		this.fontsizer(parseInt(this.database[this.currQuote]['comments'].length))
+		if (rotator) {
 
-		document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['comments']
+			document.getElementById('getQuoteButton').onclick = function() {
 
-		document.getElementById('getQuoteButton').onclick = function() {
+				document.getElementById('quotePrompter').innerHTML = self.database[self.currQuote]['attribution'];
 
-			(self.currQuote < self.database.length - 1) ? self.currQuote++ : self.currQuote = 0;
+				document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['quote'];
 
-			self.fontsizer(parseInt(self.database[self.currQuote]['comments'].length))
+				(self.currQuote < self.database.length - 1) ? self.currQuote++ : self.currQuote = 0;
 
-			document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['comments']
-		};
+				//self.fontsizer(parseInt(self.database[self.currQuote]['quote'].length))
 
-		document.getElementById('getPrevQuote').onclick = function() {
+				
+			};
 
-			(self.currQuote == 0) ? self.currQuote = self.database.length - 1 : self.currQuote--;
+			document.getElementById('getPrevQuote').onclick = function() {
 
-			self.fontsizer(parseInt(self.database[self.currQuote]['comments'].length))
+				document.getElementById('quotePrompter').innerHTML = self.database[self.currQuote]['attribution'];
 
-			document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['comments']
-		};
+				document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['quote'];
+
+				(self.currQuote == 0) ? self.currQuote = self.database.length - 1 : self.currQuote--;
+
+				//self.fontsizer(parseInt(self.database[self.currQuote]['quote'].length))
+
+				
+			};
+
+		} else {
+
+			setInterval(function() { 
+
+				document.getElementById('quotePrompter').innerHTML = self.database[self.currQuote]['attribution'];
+
+				document.getElementById('quoteText').innerHTML = self.database[self.currQuote]['quote'];
+
+				(self.currQuote < self.database.length - 1) ? self.currQuote++ : self.currQuote = 0;
+
+				//self.fontsizer(parseInt(self.database[self.currQuote]['quote'].length))
+				console.log("Check")
+				
+
+			}, 8000);
+
+		}
 
 	}
 
