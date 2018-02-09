@@ -62,7 +62,7 @@ url('https://interactive.guim.co.uk/embed/2018/manus/fonts/GHGuardianHeadline-Bo
     font-size: 1rem;
     color: black;
     margin-left: 1.5%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   #quoteText {
@@ -70,7 +70,12 @@ url('https://interactive.guim.co.uk/embed/2018/manus/fonts/GHGuardianHeadline-Bo
     font-size: 1.4rem;
     color: #ad0006;
     margin-left: 1.5%;
+<<<<<<< HEAD
     margin-bottom: 10px;
+=======
+    margin-bottom: 15px;
+    font-style: italic;
+>>>>>>> b506ccf5c1a9457060253db8aeaa45227a5200a6
   }
 
   #quoteText:before {
